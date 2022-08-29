@@ -10,11 +10,11 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @SuperBuilder
-public class Client extends User {
+public class Customer extends User {
 
     private Long id;
     private List<Address> myAddress;
-    // implementar myPaymentsMethods
-    // implementar myPets
+    //TODO implementer myPaymentsMethods
+    //TODO implementer myPets
 
 }

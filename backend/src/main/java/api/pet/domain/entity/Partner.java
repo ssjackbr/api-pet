@@ -15,8 +15,8 @@ public class Partner extends User{
     private String socialReason;
     private String stateRegistration;
     private String fantasyName;
-    private String professionalPhone;
-    private Score score;
+    private String mobilePhone;
+    private Rating rating;
     private BanckAccount banckAccount;
     private SocialMidea socialMidea;
 }
