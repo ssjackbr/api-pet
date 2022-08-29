@@ -14,11 +14,11 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
-    private String phone;
-    private Boolean thisPhoneIsWhatsapp;
+    private String mobilePhone;
     private String email;
     private String cpf;
     private String cnpj;
-    private String linkPhoto;
+    private String pictureUrl;
+    private String iconUrl;
     private Address address;
 }

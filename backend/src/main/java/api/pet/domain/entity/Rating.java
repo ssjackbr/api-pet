@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Builder
-public class Score {
+public class Rating {
 
     private Long id;
     private User evaluatorUser;
