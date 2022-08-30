@@ -3,6 +3,8 @@ package api.pet.domain.entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,9 +18,10 @@ public class User {
     private String lastName;
     private String mobilePhone;
     private String email;
+    private String password;
     private String cpf;
     private String cnpj;
     private String pictureUrl;
     private String iconUrl;
-    private Address address;
+    private List<Address> addressList;
 }

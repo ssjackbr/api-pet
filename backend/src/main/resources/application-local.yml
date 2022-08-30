@@ -1,0 +1,21 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  liquibase:
+    contexts: local
+    enabled: true
+    change-log: classpath:/db/db.changelog-master.xml
+  datasource:
+    url: jdbc:mysql://localhost:3306/pet_db?createDatabaseIfNotExist=true&useSSL=false
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: true
+  application:
+    name: api_pet
