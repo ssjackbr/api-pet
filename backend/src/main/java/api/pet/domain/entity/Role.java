@@ -1,36 +1,35 @@
 package api.pet.domain.entity;
 
-import lombok.*;
+import api.pet.domain.enums.Roles;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Set;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
-public class Address implements Serializable {
+@Table(name = "role")
+public class Role implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String role;
 
-    private String street;
-    private String number;
-    private String districtArea;
-    private String complement;
-    private String referencePoint;
-    private String city;
-    private String state;
-    private String country;
-    private String CEP;
-
-    @ManyToMany(mappedBy = "addressList")
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 }
