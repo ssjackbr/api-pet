@@ -1,18 +1,14 @@
 package api.pet.domain.entity;
 
-import api.pet.domain.enums.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Set;
-
 
 @Getter
 @Setter
@@ -30,6 +26,7 @@ public class Role implements Serializable {
     private Long id;
     private String role;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
 }

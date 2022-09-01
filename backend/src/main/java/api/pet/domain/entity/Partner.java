@@ -3,20 +3,25 @@ package api.pet.domain.entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
+@RequiredArgsConstructor
 @SuperBuilder
+@Entity
+@Table(name = "partner")
 public class Partner extends User{
 
-    private Long id;
     private String socialReason;
     private String stateRegistration;
     private String fantasyName;
     private String mobilePhone;
-    private Rating rating;
-    private BanckAccount banckAccount;
-    private SocialMidea socialMidea;
+
+    //TODO private Rating rating;
+    //TODO private BanckAccount banckAccount;
+    //TODO private SocialMidea socialMidea;*/
+
 }

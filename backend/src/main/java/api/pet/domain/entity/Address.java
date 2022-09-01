@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -21,6 +20,7 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String addressName;
     private String street;
     private String number;
     private String districtArea;
@@ -31,6 +31,6 @@ public class Address implements Serializable {
     private String country;
     private String CEP;
 
-    @ManyToMany(mappedBy = "addressList")
-    private Set<User> users;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 }
