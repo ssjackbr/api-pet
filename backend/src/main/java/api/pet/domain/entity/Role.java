@@ -26,7 +26,9 @@ public class Role implements Serializable {
     private Long id;
     private String role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
+
 
 }

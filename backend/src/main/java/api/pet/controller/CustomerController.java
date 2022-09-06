@@ -1,7 +1,7 @@
 package api.pet.controller;
 
-import api.pet.domain.entity.Customer;
-import api.pet.service.CustomerService;
+import api.pet.domain.dto.UserDTO;
+import api.pet.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,10 +15,10 @@ public class CustomerController implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final CustomerService customerService;
+    private final UserService customerService;
 
     @PostMapping(value = "/{number}")
-    public Customer testSaveUser(@PathVariable Integer number){
+    public UserDTO testSaveUser(@PathVariable Integer number){
         return customerService.save(number);
     }
 }

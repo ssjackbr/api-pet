@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Table(name = "partner")
 public class Partner extends User{
 
+    private String cnpj;
     private String socialReason;
     private String stateRegistration;
     private String fantasyName;

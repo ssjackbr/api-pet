@@ -4,10 +4,8 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
+
 
 @Getter
 @Setter
@@ -18,7 +16,7 @@ import java.util.List;
 @Table(name = "customer")
 public class Customer extends User {
 
-    private String type;
+    private String cpf;
     private String historyOrders;
     //TODO implementer myPaymentsMethods
     //TODO implementer myPets

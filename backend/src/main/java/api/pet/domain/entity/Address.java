@@ -31,6 +31,7 @@ public class Address implements Serializable {
     private String country;
     private String CEP;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
 }
