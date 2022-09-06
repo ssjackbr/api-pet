@@ -6,7 +6,6 @@ import lombok.experimental.SuperBuilder;
 import java.time.Instant;
 import java.util.Set;
 
-
 @Data
 @Getter
 @Setter
@@ -19,7 +18,6 @@ public class UserDTO {
     private String lastName;
     private String mobilePhone;
     private String email;
-    private UserInsertDTO password;
     private String pictureUrl;
     private String iconUrl;
     private Boolean enable;

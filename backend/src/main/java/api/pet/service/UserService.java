@@ -1,6 +1,9 @@
 package api.pet.service;
 
+import api.pet.domain.dto.AddressDTO;
+import api.pet.domain.dto.RoleDTO;
 import api.pet.domain.dto.UserDTO;
+import api.pet.domain.dto.UserInsertDTO;
 import api.pet.domain.entity.Address;
 import api.pet.domain.entity.Customer;
 import api.pet.domain.entity.Partner;
@@ -11,7 +14,9 @@ import api.pet.repository.PartnerRepository;
 import api.pet.util.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import javax.transaction.Transactional;
 import java.time.Instant;
@@ -26,6 +31,7 @@ public class UserService {
     private final CustomerRepository customerRepository;
     private final PartnerRepository partnerRepository;
     private final UserMapper userMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
     public UserDTO save(Integer number) {
@@ -108,9 +114,72 @@ public class UserService {
             customerRepository.save(newCustomer);
             partnerRepository.save(newPartner);
             log.info("Created User");
-            return userMapper.convertEntityCustomerToDTO(newCustomer,
-                    newCustomer.getAdresses(), newCustomer.getRoles());
+            return null; //userMapper.convertEntityCustomerToDTO(newCustomer,newCustomer.getAdresses(), newCustomer.getRoles());
         } else return null;
+    }
+
+    @Transactional
+   // public UserDTO saveNewCustomer (UserInsertDTO userInsertDTO){
+      public UserDTO saveNewCustomer (Integer number){
+
+        Set<RoleDTO> roles = new HashSet<>();
+        roles.add(RoleDTO.builder()
+                .role(Roles.ADMIN.toString())
+                .build());
+
+        log.info("Created Role");
+
+        Set<AddressDTO> addressSet = new HashSet<>();
+        addressSet.add(AddressDTO.builder()
+                .addressName("Minha Casa")
+                .street("Rua Luiz Bondezan")
+                .number("118")
+                .complement("APTO202")
+                .districtArea("Floramar")
+                .city("Belo Horizonte")
+                .state("Minas Gerais")
+                .country("BRA")
+                .CEP("31742017")
+                .referencePoint("Prédio de esquina")
+                .build());
+
+        addressSet.add(AddressDTO.builder()
+                .addressName("Empresa")
+                .street("Assis Chateubriant")
+                .number("499")
+                .complement("Empresa")
+                .districtArea("Floresta")
+                .city("Belo Horizonte")
+                .state("Minas Gerais")
+                .country("BRA")
+                .CEP("31999123")
+                .referencePoint("Antiga TV Alterosa")
+                .build());
+
+        log.info("Created Address");
+
+        UserInsertDTO userInsertDTO = UserInsertDTO.builder()
+                .firstName("Jackson")
+                .lastName("R")
+                .cpf("01607775697")
+                .email("jjr0910@gmail.com")
+                .mobilePhone("31996665838")
+                .iconUrl("https://iconimage.com")
+                .pictureUrl("https://photopefil.com")
+                .adresses(addressSet)
+                .roles(roles)
+                .password("123")
+                .enable(true)
+                .createAt(Instant.now())
+                .build();
+
+
+        Customer newCustomer = userMapper.convertDtoToCustomerEntity(userInsertDTO, passwordEncoder.encode(userInsertDTO.getPassword()));
+        customerRepository.save(newCustomer);
+        log.info("Created/Saved Customer PassawordEncoder");
+
+        return userMapper.convertEntityCustomerToDTO(newCustomer, addressSet, roles);
 
     }
+
 }

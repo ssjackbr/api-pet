@@ -1,10 +1,10 @@
 package api.pet.util.mapper;
 
+import api.pet.domain.dto.AddressDTO;
+import api.pet.domain.dto.RoleDTO;
 import api.pet.domain.dto.UserDTO;
 import api.pet.domain.dto.UserInsertDTO;
-import api.pet.domain.entity.Address;
 import api.pet.domain.entity.Customer;
-import api.pet.domain.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -23,18 +23,16 @@ public interface UserMapper {
     @Mapping(target = "lastName", source = "dto.lastName")
     @Mapping(target = "mobilePhone", source = "dto.mobilePhone")
     @Mapping(target = "email", source = "dto.email")
-    @Mapping(target = "password", source = "dtoPassword.password")
+    @Mapping(target = "password", source = "passwordEncoder")
     @Mapping(target = "pictureUrl", source = "dto.pictureUrl")
     @Mapping(target = "iconUrl", source = "dto.iconUrl")
     @Mapping(target = "enable", source = "dto.enable")
     @Mapping(target = "createAt", source = "dto.createAt")
     @Mapping(target = "cpf", source = "dto.cpf")
-    Customer convertDtoToCustomerEntity (UserDTO dto, UserInsertDTO dtoPassword);
+    Customer convertDtoToCustomerEntity (UserInsertDTO dto, String passwordEncoder);
 
-
-    @Mapping(target = "password", ignore = true)
     @Mapping(target = "roles",source = "roles")
-    @Mapping(target = "adresses",source = "adresses")
+    @Mapping(target = "adresses", source = "adresses")
     @Mapping(target = "firstName", source = "customer.firstName")
     @Mapping(target = "lastName", source = "customer.lastName")
     @Mapping(target = "mobilePhone", source = "customer.mobilePhone")
@@ -44,6 +42,6 @@ public interface UserMapper {
     @Mapping(target = "enable", source = "customer.enable")
     @Mapping(target = "createAt", source = "customer.createAt")
     @Mapping(target = "updateAt", source = "customer.updateAt")
-    UserDTO convertEntityCustomerToDTO (Customer customer, Set<Address> adresses, Set<Role> roles);
+    UserDTO convertEntityCustomerToDTO (Customer customer, Set<AddressDTO> adresses, Set<RoleDTO> roles);
 
 }
