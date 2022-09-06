@@ -1,6 +1,5 @@
 package api.pet.domain.dto;
 
-import api.pet.domain.entity.User;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -9,7 +8,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class UserInsertDTO extends User {
+public class UserInsertDTO extends UserDTO {
 
     private String password;
 }

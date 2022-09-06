@@ -19,7 +19,7 @@ public class CustomerController implements Serializable {
 
     @PostMapping(value = "/{number}")
     public UserDTO testSaveUser(@PathVariable Integer number){
-        return customerService.save(number);
+        return customerService.saveNewCustomer(number);
     }
 }
 
