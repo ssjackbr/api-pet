@@ -65,9 +65,12 @@ public class UserService {
             return userRegisteredDTO;
         }
         //TODO Refactor with custom Exception message
-        else throw new RuntimeException("Error user "+userDTO.getEmail()+" already exists!");
-
+        else {
+            throw new RuntimeException("Error user "+userDTO.getEmail()+" already exists!");
+        }
     }
+
+    //TODO Implement partner register
     public void registrationPartnerUser(UserDTO userDTO){
 
     }
