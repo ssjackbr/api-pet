@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDTO {
+public class UserRegisteredDTO {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String name;
@@ -26,22 +26,11 @@ public class UserDTO {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String email;
 
-    private String password;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String pictureUrl;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String iconUrl;
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean active;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Instant createAt;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Instant updateAt;
+    private String createAt;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cnpj;
@@ -67,5 +56,4 @@ public class UserDTO {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Set<AddressDTO> address;
-
 }

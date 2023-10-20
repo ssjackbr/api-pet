@@ -1,47 +1,49 @@
 package api.pet.util.mapper;
 
-import api.pet.domain.dto.AddressDTO;
-import api.pet.domain.dto.RoleDTO;
 import api.pet.domain.dto.UserDTO;
-import api.pet.domain.dto.UserInsertDTO;
-import api.pet.domain.entity.Customer;
+import api.pet.domain.dto.UserRegisteredDTO;
+import api.pet.domain.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-
-import java.util.Set;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface UserMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "adresses", ignore = true)
+    @Mapping(target = "address", ignore = true)
+    @Mapping(target = "updateAt", source = "dto.updateAt")
     @Mapping(target = "roles", ignore = true)
-    @Mapping(target = "historyOrders", ignore = true)
-    @Mapping(target = "updateAt", ignore = true)
-    @Mapping(target = "firstName", source = "dto.firstName")
-    @Mapping(target = "lastName", source = "dto.lastName")
-    @Mapping(target = "mobilePhone", source = "dto.mobilePhone")
+    @Mapping(target = "name", source = "dto.name")
+    @Mapping(target = "personalContact", source = "dto.personalContact")
+    @Mapping(target = "workContact", source = "dto.workContact")
     @Mapping(target = "email", source = "dto.email")
-    @Mapping(target = "password", source = "passwordEncoder")
+    @Mapping(target = "password", source = "dto.password")
     @Mapping(target = "pictureUrl", source = "dto.pictureUrl")
     @Mapping(target = "iconUrl", source = "dto.iconUrl")
-    @Mapping(target = "enable", source = "dto.enable")
+    @Mapping(target = "active", source = "dto.active")
     @Mapping(target = "createAt", source = "dto.createAt")
+    @Mapping(target = "cnpj", source = "dto.cnpj")
     @Mapping(target = "cpf", source = "dto.cpf")
-    Customer convertDtoToCustomerEntity (UserInsertDTO dto, String passwordEncoder);
+    @Mapping(target = "socialReason", source = "dto.socialReason")
+    @Mapping(target = "stateRegistration", source = "dto.stateRegistration")
+    @Mapping(target = "fantasyName", source = "dto.fantasyName")
+    @Mapping(target = "userTypeEnum", source = "dto.userTypeEnum")
+    User convertUserDTOToUserEntity (UserDTO dto);
 
-    @Mapping(target = "roles",source = "roles")
-    @Mapping(target = "adresses", source = "adresses")
-    @Mapping(target = "firstName", source = "customer.firstName")
-    @Mapping(target = "lastName", source = "customer.lastName")
-    @Mapping(target = "mobilePhone", source = "customer.mobilePhone")
-    @Mapping(target = "email", source = "customer.email")
-    @Mapping(target = "pictureUrl", source = "customer.pictureUrl")
-    @Mapping(target = "iconUrl", source = "customer.iconUrl")
-    @Mapping(target = "enable", source = "customer.enable")
-    @Mapping(target = "createAt", source = "customer.createAt")
-    @Mapping(target = "updateAt", source = "customer.updateAt")
-    UserDTO convertEntityCustomerToDTO (Customer customer, Set<AddressDTO> adresses, Set<RoleDTO> roles);
 
+    @Mapping(target = "address", source = "dto.address")
+    @Mapping(target = "name", source = "dto.name")
+    @Mapping(target = "personalContact", source = "dto.personalContact")
+    @Mapping(target = "workContact", source = "dto.workContact")
+    @Mapping(target = "email", source = "dto.email")
+    @Mapping(target = "active", source = "dto.active")
+    @Mapping(target = "createAt", source = "dto.createAt")
+    @Mapping(target = "cnpj", source = "dto.cnpj")
+    @Mapping(target = "cpf", source = "dto.cpf")
+    @Mapping(target = "socialReason", source = "dto.socialReason")
+    @Mapping(target = "stateRegistration", source = "dto.stateRegistration")
+    @Mapping(target = "fantasyName", source = "dto.fantasyName")
+    @Mapping(target = "userTypeEnum", source = "dto.userTypeEnum")
+    UserRegisteredDTO convertUserDTOToUserRegisteredDTO (UserDTO dto);
 }

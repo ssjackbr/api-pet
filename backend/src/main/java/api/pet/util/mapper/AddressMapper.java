@@ -11,7 +11,7 @@ public interface AddressMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
-    @Mapping(target = "CEP", source = "dto.CEP")
+    @Mapping(target = "cep", source = "dto.cep")
     @Mapping(target = "country", source = "dto.country")
     @Mapping(target = "state", source = "dto.state")
     @Mapping(target = "city", source = "dto.city")
@@ -21,10 +21,9 @@ public interface AddressMapper {
     @Mapping(target = "number", source = "dto.number")
     @Mapping(target = "street", source = "dto.street")
     @Mapping(target = "addressName", source = "dto.addressName")
-    Address convertDtoToAddressEntity (AddressDTO dto);
+    Address convertAddressDTOToAddressEntity (AddressDTO dto);
 
-
-    @Mapping(target = "CEP", source = "address.CEP")
+    @Mapping(target = "cep", source = "address.cep")
     @Mapping(target = "country", source = "address.country")
     @Mapping(target = "state", source = "address.state")
     @Mapping(target = "city", source = "address.city")
@@ -34,6 +33,6 @@ public interface AddressMapper {
     @Mapping(target = "number", source = "address.number")
     @Mapping(target = "street", source = "address.street")
     @Mapping(target = "addressName", source = "address.addressName")
-    AddressDTO convertEntityAddressToDTO (Address address);
+    AddressDTO convertAddressEntityToAddressToDTO (Address address);
 
 }
