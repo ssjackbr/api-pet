@@ -10,6 +10,9 @@ import java.util.Arrays;
 @Getter
 public enum UserTypeEnum {
 
+    ADMIN("admin"),
+    SUPPORT("support"),
+    USER("user"),
     PARTNER("partner"),
     CONSUMER("consumer");
 

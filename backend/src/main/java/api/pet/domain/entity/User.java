@@ -74,6 +74,7 @@ public class User implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
+    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
     public void setPassword(String password) {
