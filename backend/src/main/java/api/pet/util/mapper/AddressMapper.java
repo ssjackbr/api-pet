@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.Set;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface AddressMapper {
 
@@ -35,4 +37,16 @@ public interface AddressMapper {
     @Mapping(target = "addressName", source = "address.addressName")
     AddressDTO convertAddressEntityToAddressToDTO (Address address);
 
+
+    @Mapping(target = "cep", source = "address.cep")
+    @Mapping(target = "country", source = "address.country")
+    @Mapping(target = "state", source = "address.state")
+    @Mapping(target = "city", source = "address.city")
+    @Mapping(target = "referencePoint", source = "address.referencePoint")
+    @Mapping(target = "complement", source = "address.complement")
+    @Mapping(target = "districtArea", source = "address.districtArea")
+    @Mapping(target = "number", source = "address.number")
+    @Mapping(target = "street", source = "address.street")
+    @Mapping(target = "addressName", source = "address.addressName")
+    Set<AddressDTO> convertAddressEntityToSetAddressToDTO (Set<Address> address);
 }

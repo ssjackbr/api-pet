@@ -6,35 +6,33 @@ import lombok.*;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 @Data
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class UserRegisteredDTO {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Long id;
     private String name;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String personalContact;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String email;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean active;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String createAt;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cnpj;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cpf;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -55,4 +53,12 @@ public class UserRegisteredDTO {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Set<AddressDTO> address;
+
+    public static String formatterInstantDate(Instant instantDate){
+
+        return Instant.parse(instantDate.toString())
+                .atZone(ZoneId.of("UTC"))
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+
+    }
 }
