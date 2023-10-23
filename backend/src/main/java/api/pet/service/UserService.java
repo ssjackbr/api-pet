@@ -2,6 +2,7 @@ package api.pet.service;
 
 import api.pet.domain.dto.UserDTO;
 import api.pet.domain.dto.UserRegisteredDTO;
+import api.pet.domain.dto.UserUpdateDTO;
 import api.pet.domain.entity.Address;
 import api.pet.domain.entity.Role;
 import api.pet.domain.entity.User;
@@ -23,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -32,11 +34,11 @@ public class UserService {
     private final UserMapper userMapper;
     private final AddressMapper addressMapper;
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserRegisteredDTO registrationConsumerUser(UserDTO userDTO){
+    public UserRegisteredDTO registrationUser(UserDTO userDTO){
 
         User userInDataBase = userRepository.findByEmail(userDTO.getEmail());
 
@@ -49,7 +51,7 @@ public class UserService {
             User userToSave = userMapper.convertUserDTOToUserEntity(userDTO);
             User newUser = userRepository.save(userToSave);
 
-            validateAndApplyRoles(userDTO, newUser);
+            roleService.validateAndApplyRoles(userDTO, newUser);
 
             userDTO.getAddress().forEach(addressDTO -> {
                 Address addressToSave = addressMapper.convertAddressDTOToAddressEntity(addressDTO);
@@ -58,50 +60,30 @@ public class UserService {
             });
 
             UserRegisteredDTO userRegisteredDTO =  userMapper.convertUserDTOToUserRegisteredDTO(userDTO);
-            userRegisteredDTO.setCreateAt(Instant.parse(userDTO.getCreateAt().toString())
-                    .atZone(ZoneId.of("UTC"))
-                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            userRegisteredDTO.setCreateAt(UserRegisteredDTO.formatterInstantDate(userDTO.getCreateAt()));
 
             return userRegisteredDTO;
         }
         //TODO Refactor with custom Exception message
-        else throw new RuntimeException("Error user "+userDTO.getEmail()+" already exists!");
-
-    }
-    public void registrationPartnerUser(UserDTO userDTO){
-
+        else throw new RuntimeException("ERROR: User "+userDTO.getEmail()+" already exists!");
     }
 
-    public void validateAndApplyRoles(UserDTO userDTO, User user){
+    public UserRegisteredDTO findUserByEmail(String email) {
 
-        List<Role> roleList = new ArrayList<>();
+        User user = Optional.ofNullable(userRepository.findByEmail(email)).orElse(null);
 
-        if (Objects.nonNull(userDTO) && userDTO.getUserTypeEnum().getKey().equals(UserTypeEnum.CONSUMER.getKey())){
-            roleList.add(Role.builder()
-                    .user(user)
-                    .role(RoleEnum.CONSUMER)
-                    .build());
-
-            roleList.add(Role.builder()
-                    .user(user)
-                    .role(RoleEnum.USER)
-                    .build());
-
-            roleRepository.saveAll(roleList);
+        if(Objects.isNull(user)){
+            //TODO Implements custom exception
+            throw new RuntimeException("@@@ ERROR USER "+email+" NOT FOUND! @@@");
         }
 
-        if (Objects.nonNull(userDTO) && userDTO.getUserTypeEnum().getKey().equals(UserTypeEnum.PARTNER.getKey())){
-            roleList.add(Role.builder()
-                    .user(user)
-                    .role(RoleEnum.PARTNER)
-                    .build());
-
-            roleList.add(Role.builder()
-                    .user(user)
-                    .role(RoleEnum.USER)
-                    .build());
-
-        } roleRepository.saveAll(roleList);
+        UserRegisteredDTO userRegisteredDTO =  userMapper.convertUserToUserRegisteredDTO(user);
+        userRegisteredDTO.setCreateAt(UserRegisteredDTO.formatterInstantDate(user.getCreateAt()));
+        return userRegisteredDTO;
     }
 
+    public UserRegisteredDTO updateUser(UserUpdateDTO userUpdateDTO) {
+
+        return null;
+    }
 }
